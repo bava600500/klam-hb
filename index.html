@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Love Message</title>
+<title>رسالة حب</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
@@ -15,9 +15,14 @@ body{
 }
 
 /* دخان وردي */
-.smoke-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+.smoke-layer{
+  position:fixed;inset:0;
+  pointer-events:none;overflow:hidden;
+  z-index:0;
+}
 .smoke{
-  position:absolute;width:500px;height:500px;
+  position:absolute;
+  width:480px;height:480px;
   background:radial-gradient(circle,rgba(255,188,214,.8),transparent 70%);
   filter:blur(40px);opacity:.55;
   animation:smoke 18s ease-in-out infinite alternate;
@@ -36,47 +41,153 @@ body{
   position:fixed;inset:0;
   background:radial-gradient(circle,#ffe6f3,#ffb5d6);
   display:flex;align-items:center;justify-content:center;
-  flex-direction:column;z-index:5;
+  flex-direction:column;z-index:5;text-align:center;
 }
-.start p{font-size:1.6rem;color:#a00054;font-weight:900;margin-bottom:15px;}
+.start p{
+  font-size:1.6rem;color:#a00054;
+  font-weight:900;margin-bottom:15px;
+}
 .start button{
   padding:14px 48px;border:none;border-radius:999px;
   background:#ff4d88;color:white;font-size:1.3rem;font-weight:700;
   cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);
+  transition:.2s;
+}
+.start button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 26px rgba(0,0,0,.28);
 }
 
-/* الشخصية */
+/* مشهد الشخصية */
 .scene{
   position:fixed;inset:0;
   display:none;align-items:center;justify-content:center;
   z-index:3;
 }
+
+/* شخصية كارتونية ستايل 3D بسيط */
 .character{
-  width:350px;height:480px;border-radius:26px;
-  overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.35);
-  transform:scale(.45);opacity:0;
+  width:260px;height:360px;
+  border-radius:40px;
+  background:radial-gradient(circle at top,#ffe5f1,#ff8db7);
+  box-shadow:0 18px 36px rgba(0,0,0,.3);
+  display:flex;align-items:center;justify-content:center;
+  transform:scale(0.7);
+  opacity:0;
 }
+.character-inner{
+  position:relative;
+  width:180px;height:280px;
+}
+
+/* الرأس */
+.head{
+  position:absolute;
+  top:20px;left:50%;
+  transform:translateX(-50%);
+  width:120px;height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 20%,#fff,#f5c9b0);
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
+}
+.hair{
+  position:absolute;
+  top:-8px;left:6px;right:6px;
+  height:60px;
+  background:linear-gradient(135deg,#1e1225,#3b243f);
+  border-radius:60px 60px 40px 40px;
+}
+.eye{
+  position:absolute;
+  top:50px;width:14px;height:14px;
+  border-radius:50%;
+  background:#221220;
+  box-shadow:0 0 0 2px rgba(255,255,255,.85);
+}
+.eye.left{left:30px;}
+.eye.right{right:30px;}
+.mouth{
+  position:absolute;
+  bottom:28px;left:50%;
+  transform:translateX(-50%);
+  width:40px;height:22px;
+  background:#ff99b9;
+  border-radius:0 0 40px 40px;
+  overflow:hidden;
+  animation:talk 1s ease-in-out infinite;
+}
+.mouth-inner{
+  position:absolute;inset:4px;
+  background:#d6336c;
+  border-radius:0 0 32px 32px;
+}
+.cheek{
+  position:absolute;
+  top:75px;width:22px;height:12px;
+  border-radius:50%;
+  background:rgba(255,120,170,.7);
+  filter:blur(1px);
+}
+.cheek.left{left:18px;}
+.cheek.right{right:18px;}
+
+@keyframes talk{
+  0%{height:10px;}
+  50%{height:20px;}
+  100%{height:12px;}
+}
+
+/* الجسم */
+.body{
+  position:absolute;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:115px;height:140px;
+  border-radius:70px;
+  background:linear-gradient(180deg,#ff4d88,#c52d63);
+  box-shadow:0 14px 26px rgba(0,0,0,.3);
+}
+.arm{
+  position:absolute;
+  top:120px;width:18px;height:70px;
+  border-radius:24px;
+  background:#f5c9b0;
+  transform-origin:top;
+  animation:armWave .7s ease-in-out infinite alternate;
+}
+.arm.left{left:18px;}
+.arm.right{right:18px;animation-direction:reverse;}
+
+@keyframes armWave{
+  0%{transform:rotate(12deg);}
+  100%{transform:rotate(-14deg);}
+}
+
+/* زوم على الشخصية */
 .zoomIn{
-  animation:zoomIt 4.5s ease-out forwards;
+  animation:zoomIt 4s ease-out forwards;
 }
 @keyframes zoomIt{
-  0%{transform:scale(.45);opacity:0;}
+  0%{transform:scale(0.7);opacity:0;}
   15%{opacity:1;}
-  50%{transform:scale(1.8);}
-  75%{transform:scale(2.8);}
-  100%{transform:scale(4);opacity:0;}
+  50%{transform:scale(1.3);}
+  80%{transform:scale(1.8);}
+  100%{transform:scale(2.1);opacity:0;}
 }
 
 /* فقاعة الكلام */
 .speech{
   position:absolute;top:35px;
-  background:white;padding:12px 18px;border-radius:22px;
-  font-size:1.3rem;font-weight:900;color:#8b0044;
+  background:white;padding:12px 18px;
+  border-radius:22px;font-size:1.2rem;
+  font-weight:900;color:#8b0044;
   box-shadow:0 8px 22px rgba(0,0,0,.15);
-  opacity:0;animation:speak 3.2s ease forwards;
+  opacity:0;
+  animation:speak 3s ease forwards;
 }
 .speech::after{
-  content:"";position:absolute;bottom:-10px;left:50%;
+  content:"";position:absolute;
+  bottom:-10px;left:50%;
   transform:translateX(-50%) rotate(45deg);
   width:18px;height:18px;background:white;
 }
@@ -89,40 +200,46 @@ body{
 
 /* شاشة النص */
 .text-screen{
-  position:fixed;inset:0;background:rgba(255,255,255,.96);
+  position:fixed;inset:0;
+  background:rgba(255,255,255,.96);
   display:none;align-items:center;justify-content:center;
   padding:20px;z-index:4;
 }
 .text-box{
-  width:100%;max-width:900px;background:white;
-  border-radius:28px;padding:32px 22px;
+  width:100%;max-width:900px;
+  background:white;
+  border-radius:28px;
+  padding:30px 20px;
   box-shadow:0 20px 40px rgba(0,0,0,.24);
-  opacity:0;transform:scale(1.12);
-  animation:showTxt .8s ease forwards;
+  opacity:0;transform:scale(1.08);
+  animation:showTxt .7s ease forwards;
 }
 @keyframes showTxt{
-  from{opacity:0;transform:scale(1.15);}
+  from{opacity:0;transform:scale(1.12);}
   to{opacity:1;transform:scale(1);}
 }
 
-.line{
-  font-size:2.2rem;font-weight:900;
-  color:#7a003a;opacity:0;margin-bottom:30px;
-  animation:showLine .6s ease forwards;
+#typing{
+  font-size:1.6rem;
+  font-weight:900;
+  color:#7a003a;
+  line-height:2.3;
+  white-space:pre-wrap;
 }
-@keyframes showLine{
-  from{opacity:0;transform:scale(.9);}
-  to{opacity:1;transform:scale(1.25);}
-}
-
 .cursor{
-  display:inline-block;width:16px;font-size:2rem;
-  animation:blink 1s infinite;
+  display:inline-block;
+  width:16px;
+  font-size:2rem;
+  animation:blink 1s step-start infinite;
 }
 @keyframes blink{50%{opacity:0;}}
+
+@media(max-width:600px){
+  .character{transform:scale(0.6);}
+  #typing{font-size:1.3rem;}
+}
 </style>
 </head>
-
 <body>
 
 <!-- دخان وردي -->
@@ -134,84 +251,132 @@ body{
 
 <!-- شاشة البداية -->
 <div class="start" id="startScreen">
-  <p>جاهزة تسمعين رسالة من أبوچ؟ 💗</p>
+  <p>جاهزة تسمعين رسالة من أبوچ وحبيبچ؟ 💗</p>
   <button id="startBtn">أبــــدي</button>
 </div>
 
 <!-- مشهد الشخصية -->
 <div class="scene" id="scene">
-  <img class="character" id="character"
-       src="https://images.unsplash.com/photo-1604079623876-dc9ac9cd4d24?auto=format&fit=crop&w=900&q=80">
+  <div class="character" id="character">
+    <div class="character-inner">
+      <div class="head">
+        <div class="hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="cheek left"></div>
+        <div class="cheek right"></div>
+        <div class="mouth"><div class="mouth-inner"></div></div>
+      </div>
+      <div class="body"></div>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+    </div>
+  </div>
   <div class="speech">تعالي أشوفچ رسالة من حبيبچ 💗</div>
 </div>
 
 <!-- شاشة النص -->
 <div class="text-screen" id="textScreen">
-  <div class="text-box" id="textBox"></div>
+  <div class="text-box">
+    <div id="typing"></div><span class="cursor">|</span>
+  </div>
 </div>
 
-<!-- موسيقى عربية خفيفة (غناء خفيف – مقطع قصير يعمل دائماً) -->
+<!-- موسيقى خلفية عربية (ضع رابط أغنية هنا لو تحب) -->
 <audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/08/audio_d4b32d.jpg?filename=romantic-arabic-131829.mp3" type="audio/mp3">
-</audio>
-
-<!-- صوت كتابة قصير وواضح -->
-<audio id="typeSound">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_40c97e.mp3?filename=typing-soft-104899.mp3" type="audio/mp3">
+  <!-- مثال: ضع هنا src لأغنية عربية هادئة -->
+  <!-- <source src="https://example.com/your-arabic-song.mp3" type="audio/mpeg"> -->
 </audio>
 
 <script>
-const startBtn=document.getElementById("startBtn");
-const startScreen=document.getElementById("startScreen");
-const scene=document.getElementById("scene");
-const character=document.getElementById("character");
-const textScreen=document.getElementById("textScreen");
-const textBox=document.getElementById("textBox");
-const bgMusic=document.getElementById("bgMusic");
-const typeSound=document.getElementById("typeSound");
+const startBtn     = document.getElementById("startBtn");
+const startScreen  = document.getElementById("startScreen");
+const scene        = document.getElementById("scene");
+const characterEl  = document.getElementById("character");
+const textScreen   = document.getElementById("textScreen");
+const typingEl     = document.getElementById("typing");
+const bgMusic      = document.getElementById("bgMusic");
 
-const lines=[
-"من عرفتچ… قلبي رد يحس بشي غريب، شي ما مريت بي بحياتي.",
-"حسّيت روحي تنسحب يمچ وتهدى، وكأن تعب سنين اختفى بثواني.",
-"انتي صرتي بنتي وحبيبتي وزوجتي بروحي… قبل لا يصير شي رسمي.",
-"انتي الحضن، والنعمة، والسند، وكل العمر.",
-"أنّي وعد الج… ما اخليچ تنكسرين ولا دمعة تبقى بعينچ.",
-"احبچ عشق يفتر بالصدر ويرجف الروح ويتنفس اسمچ.",
-"تبقين انتي روحي وزوجتي القادمة، والنعمة الي الله هداني إلها."
-];
+const fullText = `من عرفتچ قلبي رد يحس بشي غريب شي ما مر بحياتي ولا مر بخاطري حسيت روحي تنسحب يمچ وارتاح وكأنه كل التعب الي شايلته سنين طاح مره وحده انتي صرتي بنتي وحبيبتي وزوجتي بروحي بدون ما يصير شي رسمي بس كلشي صار داخل كلبي
 
-let index=0;
+انتي مو بس حبيبه انتي العمر كله انتي النعمه الي اخاف عليها حتى من نفسي انتي الحضن الي ما ابد ارتفع عنه انتي صبري وقوتي وسكوني وراحتي وحتى ضعفـي من يصير يمچ يتحول قوه لان نظرتچ الي تكفيني
 
-function showLines(){
-  if(index>=lines.length) return;
-  const L=document.createElement("div");
-  L.className="line";
-  L.textContent=lines[index];
+اني وعد الج كلشي يصير بالدنيا ما اخليچ تنكسرين ولا اخلي دمعه توقف بعينچ وحدچ ولا اخلي ليله تمر وانتي ضايجه او موجوعه اني يمچ كلشي يصير سندچ وظهرچ وامانچ وضلچ وقت الحر وروحچ وقت الخوف. 
 
-  try{ typeSound.currentTime=0; typeSound.play().catch(()=>{});}catch(e){}
+احبچ عشق يفتر بالصدر ويرجف الروح ويخليني اغار لو الهوا لعب بشعرچ لو صوت غيري نادالج لو حتى التفكير راح بعيد عني اني ما اشوف غيرچ وما اريد غيرچ وما اريد العمر يمشي اذا انتي مو يمه
 
-  textBox.appendChild(L);
-  index++;
+انتي سندي من هلدنيه ماريد من هلدنيه غير فرحتچ. وراحتچ احبچ كلش هوايي هوايي
 
-  setTimeout(showLines, 2600);
+تبقين انتي بنتي وروحي وزوجتي المستقبلية الي اخلي كل عمري بيدها واقولها خذي كلشي واني ابقه يمچ للابد انتي الكلمة الحلوه الي ما تنعاد مرتين وانتي اللحظه الي الله رزقني بيها حتى اعرف شنو يعني واحد يحب من قلبه صدك مو لعب`;
+
+let index = 0;
+let displayHTML = "";
+
+// صوت كتابة عن طريق Web Audio (قصير وخفيف)
+let audioCtx = null;
+function playTypeSound(char){
+  if (!char || char.trim() === "") return; // لا صوت على الفراغ
+  if (!audioCtx){
+    try{
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }catch(e){
+      return;
+    }
+  }
+  const osc  = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  const now  = audioCtx.currentTime;
+
+  osc.type = "square";
+  osc.frequency.setValueAtTime(1300, now);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.linearRampToValueAtTime(0.06, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(now);
+  osc.stop(now + 0.09);
 }
 
-startBtn.onclick=()=>{
-  startScreen.style.display="none";
+const charDelay = 85; // أبطأ شوي
 
-  // موسيقى خلفية
-  bgMusic.volume=0.55;
-  bgMusic.play().catch(()=>{});
+function typeNextChar(){
+  if (index >= fullText.length) return;
 
-  scene.style.display="flex";
-  character.classList.add("zoomIn");
+  const ch = fullText.charAt(index);
 
-  setTimeout(()=>{
-    scene.style.display="none";
-    textScreen.style.display="flex";
-    showLines();
-  },4700);
-};
+  if (ch === "\n"){
+    displayHTML += "\n\n";
+  }else{
+    displayHTML += ch;
+  }
+
+  typingEl.textContent = displayHTML;
+  playTypeSound(ch);
+
+  index++;
+  setTimeout(typeNextChar, charDelay);
+}
+
+startBtn.addEventListener("click", () => {
+  // إخفاء شاشة البداية
+  startScreen.style.display = "none";
+
+  // تشغيل موسيقى الخلفية لو حاط رابط
+  try { bgMusic.play().catch(()=>{}); } catch(e){}
+
+  // إظهار مشهد الشخصية
+  scene.style.display = "flex";
+  characterEl.classList.add("zoomIn");
+
+  // بعد الزوم ننتقل للنص
+  setTimeout(() => {
+    scene.style.display = "none";
+    textScreen.style.display = "flex";
+    typeNextChar();
+  }, 4200);
+});
 </script>
 
 </body>
