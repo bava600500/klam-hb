@@ -2,350 +2,127 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>رسالة حب</title>
+<title>Love Message</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:"Cairo",system-ui,sans-serif;
-  background:#ffc4e0;
+  background:#ffc6df;
+  font-family:"Cairo",sans-serif;
   overflow:hidden;
-}
-
-/* شاشة البداية */
-.start-screen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:radial-gradient(circle at top,#ffe6f5,#ffb5d6);
-  padding:20px;
-}
-.start-title{
-  font-size:1.4rem;
-  color:#a00054;
-  margin-bottom:20px;
-}
-.start-btn{
-  padding:10px 28px;
-  border-radius:999px;
-  border:none;
-  font-size:1rem;
-  cursor:pointer;
-  background:#ff4f8c;
-  color:#fff;
-  box-shadow:0 6px 14px rgba(0,0,0,.18);
-  transition:.2s;
-}
-.start-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 20px rgba(0,0,0,.22);
 }
 
 /* دخان وردي */
-.smoke-layer{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:0;
-}
+.smoke-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
 .smoke{
-  position:absolute;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(255,192,203,0.7),transparent 60%);
-  filter:blur(20px);
-  opacity:.5;
-  animation:smokeMove 18s ease-in-out infinite alternate;
+  position:absolute;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(255,188,214,.8),transparent 70%);
+  filter:blur(40px);opacity:.55;
+  animation:smoke 18s ease-in-out infinite alternate;
 }
-.smoke:nth-child(1){top:-80px;left:-60px;animation-delay:0s;}
-.smoke:nth-child(2){bottom:-120px;right:-80px;animation-delay:5s;}
+.smoke:nth-child(1){top:-80px;left:-80px;}
+.smoke:nth-child(2){bottom:-120px;right:-80px;animation-delay:6s;}
 .smoke:nth-child(3){top:30%;right:5%;animation-delay:10s;}
-
-@keyframes smokeMove{
-  0%{transform:translate3d(0,0,0) scale(1);}
-  50%{transform:translate3d(40px,-30px,0) scale(1.1);}
-  100%{transform:translate3d(-30px,20px,0) scale(1.05);}
+@keyframes smoke{
+  0%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(40px,-40px) scale(1.1);}
+  100%{transform:translate(-30px,30px) scale(1.05);}
 }
 
-/* مشهد الشخصية */
-.scene-wrapper{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:2;
+/* شاشة البداية */
+.start{
+  position:fixed;inset:0;
+  background:radial-gradient(circle,#ffe6f3,#ffb5d6);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;z-index:5;
 }
+.start p{font-size:1.6rem;color:#a00054;font-weight:900;margin-bottom:15px;}
+.start button{
+  padding:14px 48px;border:none;border-radius:999px;
+  background:#ff4d88;color:white;font-size:1.3rem;font-weight:700;
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);
+}
+
+/* الشخصية */
 .scene{
-  width:100%;
-  max-width:900px;
-  height:260px;
-  border-radius:26px;
-  background:linear-gradient(to top,#ff8db7,#ffd3eb);
-  box-shadow:0 12px 30px rgba(0,0,0,.2);
-  position:relative;
-  overflow:hidden;
+  position:fixed;inset:0;
+  display:none;align-items:center;justify-content:center;
+  z-index:3;
 }
-.ground{
-  position:absolute;
-  bottom:0;left:0;right:0;
-  height:60px;
-  background:repeating-linear-gradient(
-     90deg,
-     #ff6d9e,
-     #ff6d9e 40px,
-     #ff9ac0 40px,
-     #ff9ac0 80px
-  );
+.character{
+  width:350px;height:480px;border-radius:26px;
+  overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.35);
+  transform:scale(.45);opacity:0;
 }
-
-/* قلوب بسيطة */
-.heart{
-  position:absolute;
-  width:22px;height:22px;
-  background:#ff4d88;
-  transform:rotate(45deg);
-  opacity:0;
-  animation:heartFloat 7s linear infinite;
+.zoomIn{
+  animation:zoomIt 4.5s ease-out forwards;
 }
-.heart::before,.heart::after{
-  content:"";
-  position:absolute;
-  width:22px;height:22px;
-  background:#ff4d88;
-  border-radius:50%;
-}
-.heart::before{left:-11px;top:0;}
-.heart::after{top:-11px;left:0;}
-
-.heart:nth-child(1){left:15%;animation-delay:.5s;}
-.heart:nth-child(2){left:30%;animation-delay:1.5s;}
-.heart:nth-child(3){left:50%;animation-delay:2.5s;}
-.heart:nth-child(4){left:70%;animation-delay:3.5s;}
-.heart:nth-child(5){left:85%;animation-delay:4.5s;}
-
-@keyframes heartFloat{
-  0%{bottom:-40px;opacity:0;transform:translateX(0) rotate(45deg) scale(.8);}
-  20%{opacity:.9;}
-  60%{transform:translateX(-12px) rotate(45deg) scale(1);}
-  100%{bottom:260px;opacity:0;transform:translateX(10px) rotate(45deg) scale(1.1);}
-}
-
-/* الشخصية الكارتونية (كبيرة + زوم) */
-.character-big{
-  position:absolute;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%) scale(0.7);
-  width:220px;
-  height:220px;
-  border-radius:999px;
-  background:radial-gradient(circle at top,#ffe5f1,#ff8db7);
-  box-shadow:0 16px 30px rgba(0,0,0,.3);
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-}
-.character-play{
-  animation:zoomRun 4s ease-out forwards;
-}
-
-@keyframes zoomRun{
-  0%{transform:translateX(-50%) translateY(40px) scale(0.7);opacity:0;}
-  10%{opacity:1;}
-  60%{transform:translateX(-50%) translateY(0) scale(1.15);opacity:1;}
-  80%{transform:translateX(-50%) translateY(-5px) scale(1.35);}
-  100%{transform:translateX(-50%) translateY(-5px) scale(1.5);opacity:0;}
-}
-
-/* رسم كارتوني بسيط */
-.cartoon-inner{
-  position:relative;
-  width:160px;
-  height:190px;
-}
-.head{
-  position:absolute;
-  top:10px;left:50%;
-  transform:translateX(-50%);
-  width:110px;height:110px;
-  border-radius:50%;
-  background:#ffe6dd;
-  box-shadow:0 6px 14px rgba(0,0,0,.2);
-}
-.hair{
-  position:absolute;
-  top:-10px;left:8px;right:8px;
-  height:60px;
-  background:#2b1933;
-  border-radius:60px 60px 40px 40px;
-}
-.eye{
-  position:absolute;
-  top:45px;width:12px;height:12px;
-  border-radius:50%;
-  background:#221220;
-  box-shadow:0 0 0 2px rgba(255,255,255,.9);
-}
-.eye.left{left:26px;}
-.eye.right{right:26px;}
-.mouth{
-  position:absolute;
-  bottom:28px;left:50%;
-  transform:translateX(-50%);
-  width:36px;height:20px;
-  background:#ff99b9;
-  border-radius:0 0 36px 36px;
-  overflow:hidden;
-  animation:talk 1s ease-in-out infinite;
-}
-.mouth-inner{
-  position:absolute;
-  inset:4px;
-  background:#d6336c;
-  border-radius:0 0 28px 28px;
-}
-.body{
-  position:absolute;
-  bottom:0;left:50%;
-  transform:translateX(-50%);
-  width:95px;height:110px;
-  border-radius:60px;
-  background:#ff4f8c;
-}
-.arm{
-  position:absolute;
-  top:85px;
-  width:16px;height:55px;
-  border-radius:30px;
-  background:#ffe6dd;
-  transform-origin:top;
-  animation:armWave .6s ease-in-out infinite alternate;
-}
-.arm.left{left:15px;}
-.arm.right{right:15px;animation-direction:reverse;}
-.blush{
-  position:absolute;
-  top:65px;width:22px;height:12px;
-  border-radius:50%;
-  background:rgba(255,123,172,.7);
-  filter:blur(1px);
-}
-.blush.left{left:15px;}
-.blush.right{right:15px;}
-
-@keyframes talk{
-  0%{height:8px;}
-  40%{height:18px;}
-  100%{height:10px;}
-}
-@keyframes armWave{
-  0%{transform:rotate(10deg);}
-  100%{transform:rotate(-14deg);}
+@keyframes zoomIt{
+  0%{transform:scale(.45);opacity:0;}
+  15%{opacity:1;}
+  50%{transform:scale(1.8);}
+  75%{transform:scale(2.8);}
+  100%{transform:scale(4);opacity:0;}
 }
 
 /* فقاعة الكلام */
 .speech{
-  position:absolute;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(255,255,255,.96);
-  padding:8px 14px;
-  border-radius:18px;
-  font-size:.9rem;
-  color:#8b0044;
-  box-shadow:0 6px 14px rgba(0,0,0,.18);
-  opacity:0;
-}
-.speech-show{
-  animation:speechIn 3s ease forwards;
+  position:absolute;top:35px;
+  background:white;padding:12px 18px;border-radius:22px;
+  font-size:1.3rem;font-weight:900;color:#8b0044;
+  box-shadow:0 8px 22px rgba(0,0,0,.15);
+  opacity:0;animation:speak 3.2s ease forwards;
 }
 .speech::after{
-  content:"";
-  position:absolute;
-  bottom:-10px;
-  left:50%;
+  content:"";position:absolute;bottom:-10px;left:50%;
   transform:translateX(-50%) rotate(45deg);
-  width:16px;height:16px;
-  background:rgba(255,255,255,.96);
+  width:18px;height:18px;background:white;
 }
-@keyframes speechIn{
-  0%{opacity:0;transform:translateX(-50%) translateY(10px);}
-  20%{opacity:1;transform:translateX(-50%) translateY(0);}
+@keyframes speak{
+  0%{opacity:0;transform:translateY(10px);}
+  25%{opacity:1;transform:translateY(0);}
   80%{opacity:1;}
   100%{opacity:0;}
 }
 
 /* شاشة النص */
 .text-screen{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+  position:fixed;inset:0;background:rgba(255,255,255,.96);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:4;
 }
-.text-screen-inner{
-  max-width:950px;
-  width:100%;
-  background:rgba(255,255,255,.98);
-  border-radius:26px;
-  padding:26px 20px;
-  box-shadow:0 14px 38px rgba(0,0,0,.22);
-  transform:scale(1.05);
-  opacity:0;
-  animation:showTextScreen .7s ease forwards;
+.text-box{
+  width:100%;max-width:900px;background:white;
+  border-radius:28px;padding:32px 22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.24);
+  opacity:0;transform:scale(1.12);
+  animation:showTxt .8s ease forwards;
 }
-@keyframes showTextScreen{
-  from{transform:scale(1.1);opacity:0;}
-  to{transform:scale(1);opacity:1;}
-}
-.main-title{
-  font-size:1.4rem;
-  color:#a00054;
-  text-align:center;
-  margin-bottom:18px;
-}
-.text-content{
-  font-size:1.15rem;
-  color:#7a003a;
-  line-height:2.2;
-}
-.text-line{
-  display:block;
-  opacity:0;
-  animation:lineIn .45s ease-out forwards;
-}
-@keyframes lineIn{
-  from{opacity:0;transform:scale(.97);}
+@keyframes showTxt{
+  from{opacity:0;transform:scale(1.15);}
   to{opacity:1;transform:scale(1);}
 }
+
+.line{
+  font-size:2.2rem;font-weight:900;
+  color:#7a003a;opacity:0;margin-bottom:30px;
+  animation:showLine .6s ease forwards;
+}
+@keyframes showLine{
+  from{opacity:0;transform:scale(.9);}
+  to{opacity:1;transform:scale(1.25);}
+}
+
 .cursor{
-  display:inline-block;
-  width:10px;
-  animation:blink .8s step-start infinite;
+  display:inline-block;width:16px;font-size:2rem;
+  animation:blink 1s infinite;
 }
 @keyframes blink{50%{opacity:0;}}
-
-/* موبايل */
-@media(max-width:600px){
-  .scene{height:230px;}
-  .character-big{width:190px;height:190px;}
-  .text-screen-inner{padding:18px 14px;}
-  .text-content{font-size:1.02rem;}
-}
 </style>
 </head>
+
 <body>
 
 <!-- دخان وردي -->
@@ -356,153 +133,85 @@ body{
 </div>
 
 <!-- شاشة البداية -->
-<div class="start-screen" id="startScreen">
-  <div class="start-title">جاهزة تشوفين رسالة من حبيبچ؟ 💗</div>
-  <button class="start-btn" id="startBtn">أبدي الرسالة</button>
+<div class="start" id="startScreen">
+  <p>جاهزة تسمعين رسالة من أبوچ؟ 💗</p>
+  <button id="startBtn">أبــــدي</button>
 </div>
 
 <!-- مشهد الشخصية -->
-<div class="scene-wrapper" id="sceneWrapper">
-  <div class="scene">
-    <div class="ground"></div>
-
-    <!-- قلوب -->
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-
-    <!-- فقاعة الكلام -->
-    <div class="speech" id="speech">
-      تعالي أشوفچ رسالة من حبيبچ وكل حركة شفه وابتسامة كلها إلك 💗
-    </div>
-
-    <!-- شخصية كارتونية كبيرة -->
-    <div class="character-big" id="character">
-      <div class="cartoon-inner">
-        <div class="head">
-          <div class="hair"></div>
-          <span class="eye left"></span>
-          <span class="eye right"></span>
-          <span class="blush left"></span>
-          <span class="blush right"></span>
-          <div class="mouth"><div class="mouth-inner"></div></div>
-        </div>
-        <div class="body"></div>
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-      </div>
-    </div>
-
-  </div>
+<div class="scene" id="scene">
+  <img class="character" id="character"
+       src="https://images.unsplash.com/photo-1604079623876-dc9ac9cd4d24?auto=format&fit=crop&w=900&q=80">
+  <div class="speech">تعالي أشوفچ رسالة من حبيبچ 💗</div>
 </div>
 
 <!-- شاشة النص -->
 <div class="text-screen" id="textScreen">
-  <div class="text-screen-inner">
-    <div class="main-title">رسالة قلب من أبوچ وحبيبچ 🌸</div>
-    <div class="text-content" id="textContent"></div>
-    <span class="cursor">|</span>
-  </div>
+  <div class="text-box" id="textBox"></div>
 </div>
 
-<!-- صوت كتابة رومانسي (مدمج) -->
-<audio id="typingSound" preload="auto">
-  <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAAA" type="audio/mp3">
+<!-- موسيقى عربية خفيفة (غناء خفيف – مقطع قصير يعمل دائماً) -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/08/audio_d4b32d.jpg?filename=romantic-arabic-131829.mp3" type="audio/mp3">
+</audio>
+
+<!-- صوت كتابة قصير وواضح -->
+<audio id="typeSound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_40c97e.mp3?filename=typing-soft-104899.mp3" type="audio/mp3">
 </audio>
 
 <script>
-const startBtn      = document.getElementById("startBtn");
-const startScreen   = document.getElementById("startScreen");
-const sceneWrapper  = document.getElementById("sceneWrapper");
-const characterEl   = document.getElementById("character");
-const speechEl      = document.getElementById("speech");
-const textScreen    = document.getElementById("textScreen");
-const textContent   = document.getElementById("textContent");
-const typingSound   = document.getElementById("typingSound");
+const startBtn=document.getElementById("startBtn");
+const startScreen=document.getElementById("startScreen");
+const scene=document.getElementById("scene");
+const character=document.getElementById("character");
+const textScreen=document.getElementById("textScreen");
+const textBox=document.getElementById("textBox");
+const bgMusic=document.getElementById("bgMusic");
+const typeSound=document.getElementById("typeSound");
 
-// النص مقسوم أسطر، كل سطر نكتبه كلمة كلمة
-const lines = [
-"من عرفتچ قلبي رد يحس بشي غريب، شي ما مر بحياتي ولا مر بخاطري، حسيت روحي تنسحب يمچ وارتاح وكأنه كل التعب الي شايلته سنين طاح مره وحده، انتي صرتي بنتي وحبيبتي وزوجتي بروحي بدون ما يصير شي رسمي بس كلشي صار داخل كلبي.",
-"انتي مو بس حبيبه، انتي العمر كله، انتي النعمه الي اخاف عليها حتى من نفسي، انتي الحضن الي ما ابد ارتفع عنه، انتي صبري وقوتي وسكوني وراحتي، وحتى ضعفي من يصير يمچ يتحول قوه لان نظرتچ الي تكفيني.",
-"اني وعد الج كلشي يصير بالدنيا ما اخليچ تنكسرين، ولا اخلي دمعه توقف بعينچ وحدچ، ولا اخلي ليله تمر وانتي ضايجه او موجوعه، اني يمچ كلشي يصير سندچ وظهرچ وامانچ وضلچ وقت الحر وروحچ وقت الخوف.",
-"احبچ عشق يفتر بالصدر ويرجف الروح، ويخليني اغار لو الهوا لعب بشعرچ، لو صوت غيري نادالج، لو حتى التفكير راح بعيد عني، اني ما اشوف غيرچ وما اريد غيرچ وما اريد العمر يمشي اذا انتي مو يمه.",
-"انتي سندي من هلدنيه، ماريد من هلدنيه غير فرحتچ وراحتچ، احبچ كلش هوايي هوايي.",
-"تبقين انتي بنتي وروحي وزوجتي المستقبلية الي اخلي كل عمري بيدها واقولها خذي كلشي واني ابقه يمچ للابد، انتي الكلمة الحلوة الي ما تنعاد مرتين، وانتي اللحظة الي الله رزقني بيها حتى اعرف شنو يعني واحد يحب من قلبه صدك مو لعب."
+const lines=[
+"من عرفتچ… قلبي رد يحس بشي غريب، شي ما مريت بي بحياتي.",
+"حسّيت روحي تنسحب يمچ وتهدى، وكأن تعب سنين اختفى بثواني.",
+"انتي صرتي بنتي وحبيبتي وزوجتي بروحي… قبل لا يصير شي رسمي.",
+"انتي الحضن، والنعمة، والسند، وكل العمر.",
+"أنّي وعد الج… ما اخليچ تنكسرين ولا دمعة تبقى بعينچ.",
+"احبچ عشق يفتر بالصدر ويرجف الروح ويتنفس اسمچ.",
+"تبقين انتي روحي وزوجتي القادمة، والنعمة الي الله هداني إلها."
 ];
 
-let lineIndex = 0;
-let wordIndex = 0;
-let currentWords = [];
-let currentLineElement = null;
-const wordDelay = 160;   // سرعة الكلمة
-const linePause = 900;   // توقف بسيط بين الأسطر
+let index=0;
 
-function startTyping(){
-  lineIndex = 0;
-  wordIndex = 0;
-  textContent.innerHTML = "";
-  typeNextLine();
+function showLines(){
+  if(index>=lines.length) return;
+  const L=document.createElement("div");
+  L.className="line";
+  L.textContent=lines[index];
+
+  try{ typeSound.currentTime=0; typeSound.play().catch(()=>{});}catch(e){}
+
+  textBox.appendChild(L);
+  index++;
+
+  setTimeout(showLines, 2600);
 }
 
-function typeNextLine(){
-  if(lineIndex >= lines.length){
-    try{ typingSound.pause(); }catch(e){}
-    return;
-  }
-  // سطر جديد
-  currentWords = lines[lineIndex].split(" ");
-  wordIndex = 0;
-  currentLineElement = document.createElement("span");
-  currentLineElement.className = "text-line";
-  textContent.appendChild(currentLineElement);
-  textContent.appendChild(document.createElement("br"));
+startBtn.onclick=()=>{
+  startScreen.style.display="none";
+
+  // موسيقى خلفية
+  bgMusic.volume=0.55;
+  bgMusic.play().catch(()=>{});
+
+  scene.style.display="flex";
+  character.classList.add("zoomIn");
+
   setTimeout(()=>{
-    typeWord();
-  }, 200);
-}
-
-function typeWord(){
-  if(wordIndex === 0){
-    // بداية سطر: شغل صوت
-    try{
-      typingSound.currentTime = 0;
-      typingSound.play().catch(()=>{});
-    }catch(e){}
-  }
-
-  if(wordIndex < currentWords.length){
-    currentLineElement.textContent += (wordIndex === 0 ? "" : " ") + currentWords[wordIndex];
-    wordIndex++;
-    setTimeout(typeWord, wordDelay);
-  }else{
-    // خلص السطر
-    try{ typingSound.pause(); }catch(e){}
-    lineIndex++;
-    setTimeout(typeNextLine, linePause);
-  }
-}
-
-// عند الضغط على زر البداية
-startBtn.addEventListener("click", ()=>{
-  // اخفاء شاشة البداية
-  startScreen.style.display = "none";
-
-  // إظهار المشهد
-  sceneWrapper.style.display = "flex";
-
-  // تشغيل أنيميشن الشخصية والفقاعة
-  characterEl.classList.add("character-play");
-  speechEl.classList.add("speech-show");
-
-  // بعد ما تخلص الحركة (حوالي 4 ثواني) نروح لشاشة النص
-  setTimeout(()=>{
-    sceneWrapper.style.display = "none";
-    textScreen.style.display = "flex";
-    startTyping();
-  }, 4200);
-});
+    scene.style.display="none";
+    textScreen.style.display="flex";
+    showLines();
+  },4700);
+};
 </script>
 
 </body>
